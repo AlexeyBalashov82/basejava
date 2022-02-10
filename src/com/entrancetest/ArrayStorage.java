@@ -1,8 +1,6 @@
 package com.entrancetest;
 
 import java.util.Arrays;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * Array based storage for Resumes
