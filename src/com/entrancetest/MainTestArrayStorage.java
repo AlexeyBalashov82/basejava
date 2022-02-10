@@ -1,3 +1,5 @@
+package com.entrancetest;
+
 /**
  * Test for your ArrayStorage implementation
  */

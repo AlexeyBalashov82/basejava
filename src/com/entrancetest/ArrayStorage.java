@@ -1,3 +1,5 @@
+package com.entrancetest;
+
 /**
  * Array based storage for Resumes
  */

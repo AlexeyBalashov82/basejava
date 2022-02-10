@@ -1,3 +1,5 @@
+package com.entrancetest;
+
 /**
  * Initial resume class
  */
