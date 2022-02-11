@@ -17,7 +17,7 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (searchIndex(r.toString()) < 0) {
+        if (index(r.toString()) < 0) {
             storage[resumeCount] = r;
             resumeCount++;
         } else {
@@ -26,7 +26,7 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        int i = searchIndex(uuid);
+        int i = index(uuid);
         if (i < 0) {
             System.out.println("Not found resume with uuid: " + uuid);
         }
@@ -34,38 +34,29 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int i = searchIndex(uuid);
+        int i = index(uuid);
         if (i < 0) {
             System.out.println("Not found resume with uuid: " + uuid);
         } else {
-            storageSetRange(Arrays.copyOfRange(storage, 0, i), 0);
-            storageSetRange(Arrays.copyOfRange(storage, i + 1, resumeCount), i);
+            for (int j = i; j < resumeCount - 1; j++) {
+                storage[j] = storage[j + 1];
+            }
             resumeCount--;
             storage[resumeCount] = null;
         }
     }
 
-    private int searchIndex(String uuid) {
-        boolean isResumeInStorage = false;
-        int i = 0;
-        while (i < resumeCount) {
-            isResumeInStorage = storage[i].toString().equals(uuid);
-            if (isResumeInStorage) {
-                break;
+    private int index(String uuid) {
+        for (int i = 0; i < resumeCount; i++) {
+            if (storage[i].toString().equals(uuid)) {
+                return i;
             }
-            i++;
         }
-        return (isResumeInStorage) ? i : -1;
-    }
-
-    private void storageSetRange(Resume[] sourceStorage, int startIndex) {
-        for (int i = 0; i <= sourceStorage.length - 1; i++) {
-            storage[startIndex + i] = sourceStorage[i];
-        }
+        return -1;
     }
 
     Resume[] getAll() {
-        return (resumeCount > 0) ? Arrays.copyOfRange(storage, 0, resumeCount) : new Resume[0];
+        return Arrays.copyOfRange(storage, 0, resumeCount);
     }
 
     int size() {
