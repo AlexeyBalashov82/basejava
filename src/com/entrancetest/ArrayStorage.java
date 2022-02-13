@@ -17,7 +17,7 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (index(r.toString()) < 0) {
+        if (searchIndex(r.toString()) < 0) {
             storage[resumeCount] = r;
             resumeCount++;
         } else {
@@ -26,19 +26,19 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        int i = index(uuid);
-        if (i < 0) {
+        int index = searchIndex(uuid);
+        if (index < 0) {
             System.out.println("Not found resume with uuid: " + uuid);
         }
-        return (i < 0) ? null : storage[i];
+        return (index < 0) ? null : storage[index];
     }
 
     void delete(String uuid) {
-        int i = index(uuid);
-        if (i < 0) {
+        int index = searchIndex(uuid);
+        if (index < 0) {
             System.out.println("Not found resume with uuid: " + uuid);
         } else {
-            for (int j = i; j < resumeCount - 1; j++) {
+            for (int j = index; j < resumeCount - 1; j++) {
                 storage[j] = storage[j + 1];
             }
             resumeCount--;
@@ -46,7 +46,7 @@ public class ArrayStorage {
         }
     }
 
-    private int index(String uuid) {
+    private int searchIndex(String uuid) {
         for (int i = 0; i < resumeCount; i++) {
             if (storage[i].toString().equals(uuid)) {
                 return i;
